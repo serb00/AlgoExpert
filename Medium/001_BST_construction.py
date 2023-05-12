@@ -122,23 +122,23 @@ class BST:
 
     def print_tree_top_left(self):
         # iterative method
-        curNode = self
-        while curNode is not None:
-            print(curNode.value)
-            if curNode.left is not None:
-                parentNode = curNode
-                curNode = curNode.left
-            elif curNode.right is not None:
-                parentNode = curNode
-                curNode = curNode.right
-            else:
-                curNode = parentNode
+        # curNode = self
+        # while curNode is not None:
+        #     print(curNode.value)
+        #     if curNode.left is not None:
+        #         parentNode = curNode
+        #         curNode = curNode.left
+        #     elif curNode.right is not None:
+        #         parentNode = curNode
+        #         curNode = curNode.right
+        #     else:
+        #         curNode = parentNode
         # recursive method
-        # print(str(self.value))
-        # if self.left:
-        #     self.left.print_tree_top_left()
-        # if self.right:
-        #     self.right.print_tree_top_left()
+        print(str(self.value))
+        if self.left:
+            self.left.print_tree_top_left()
+        if self.right:
+            self.right.print_tree_top_left()
 
     def print_tree_left_top(self):
         if self.left:
@@ -152,9 +152,7 @@ tree = BST(10).insert(5).insert(2).insert(5).insert(1)
 tree.insert(15).insert(13).insert(22).insert(14).insert(12)
 
 print(tree.contains(14))
-
 print(tree.remove(22))
-
 print(tree.contains(11))
 
 tree.print_tree_top_left()
