@@ -10,15 +10,14 @@ def nonConstructibleChange(coins):
             if coin > change + 1:
                 change += 1
                 return change
-            else:
-                change += coin
+            change += coin
     return change + 1
 
 
 # no sorting solution
-# trouble is it's actually slower than the first one
-# but this solution could work with stream or when you do not
-# know when you would stop getting numbers
+# trouble is it's actually slower time wise than the first one
+# but this solution could work with stream (when you do not
+# know when you would stop getting numbers)
 def nonConstructibleChange_opt(coins):
     # Write your code here.
     possible = 0b1
