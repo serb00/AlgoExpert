@@ -149,7 +149,7 @@ def branchSums_recursive(root):
 def calculateBranchSumms(node, runningSum, summs):
     if node is None:
         return
-        
+
     newRunningSum = runningSum + node.value
     if node.left is None and node.right is None:
         summs.append(newRunningSum)
@@ -178,11 +178,11 @@ tree = BST(10).insert(5).insert(2).insert(5).insert(1)
 tree.insert(15).insert(13).insert(22).insert(14).insert(12)
 
 # tree.print_tree_top_left()
-print(branchSums_recursive(tree))
-print(branchSums_iterative(tree))
+# print(branchSums_recursive(tree))
+# print(branchSums_iterative(tree))
 
-# itr = 100_000
+itr = 100_000
 
-# for foo in [branchSums_recursive, branchSums_iterative]:
-#     t = timeit(stmt="foo(tree)", number=itr, globals=globals())
-#     print(f"{foo.__name__} runed in {t:.6f} seconds")
+for foo in [branchSums_recursive, branchSums_iterative]:
+    t = timeit(stmt="foo(tree)", number=itr, globals=globals())
+    print(f"{foo.__name__} runed in {t:.6f} seconds")
