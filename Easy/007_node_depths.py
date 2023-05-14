@@ -139,61 +139,53 @@ class BST:
         print(str(self.value))
 
 
-def branchSums_recursive2(root):
+def nodeDepths(root):
     # Write your code here.
-    if root is None:
-        return []
-
-    branches = (branchSums_recursive2(root.left) +
-                branchSums_recursive2(root.right))
-
-    return [x + root.value for x in branches] if branches else [root.value]
+    depths = []
+    getDepth(root, 0, depths)
+    return sum(depths)
 
 
-def branchSums_recursive(root):
-    # Write your code here.
-    summs = []
-    calculateBranchSumms(root, 0, summs)
-    return summs
+def getDepth(node, curDepth, depths):
+    depths.append(curDepth)
+    if node.left is not None:
+        getDepth(node.left, curDepth + 1, depths)
+    if node.right is not None:
+        getDepth(node.right, curDepth + 1, depths)
 
 
-def calculateBranchSumms(node, runningSum, summs):
-    if node is None:
-        return
-
-    newRunningSum = runningSum + node.value
-    if node.left is None and node.right is None:
-        summs.append(newRunningSum)
-        return
-
-    calculateBranchSumms(node.left, newRunningSum, summs)
-    calculateBranchSumms(node.right, newRunningSum, summs)
-
-
-def branchSums_iterative(root):
+def nodeDepth_iter(root):
     stack = [(root, 0)]
-    branchSumValues = []
+    sumDepths = 0
     while len(stack) > 0:
-        curNode, curSum = stack.pop()
-        if curNode.right is None and curNode.left is None:
-            branchSumValues.append(curSum + curNode.value)
-
-        if curNode.right is not None:
-            stack.append((curNode.right, curSum + curNode.value))
+        curNode, curDepth = stack.pop()
+        sumDepths += curDepth
         if curNode.left is not None:
-            stack.append((curNode.left, curSum + curNode.value))
-    return branchSumValues
+            stack.append((curNode.left, curDepth + 1))
+        if curNode.right is not None:
+            stack.append((curNode.right, curDepth + 1))
+    return sumDepths
+
+
+def nodeDepths_rec(tree, depth=0):
+    if tree is None:
+        return 0
+    return (depth +
+            nodeDepths_rec(tree.left, depth + 1) +
+            nodeDepths_rec(tree.right, depth + 1))
 
 
 tree = BST(10).insert(5).insert(2).insert(5).insert(1)
 tree.insert(15).insert(13).insert(22).insert(14).insert(12)
 
 # tree.print_tree_top_left()
-# print(branchSums_recursive(tree))
-# print(branchSums_iterative(tree))
+# print(nodeDepths(tree))
+# print(nodeDepth_iter(tree))
+# print(nodeDepths_rec(tree))
 
-itr = 100_000
 
-for foo in [branchSums_recursive, branchSums_recursive2, branchSums_iterative]:
+itr = 1_000_000
+
+for foo in [nodeDepths, nodeDepth_iter, nodeDepths_rec]:
     t = timeit(stmt="foo(tree)", number=itr, globals=globals())
     print(f"{foo.__name__} runed in {t:.6f} seconds")
