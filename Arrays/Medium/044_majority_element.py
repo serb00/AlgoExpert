@@ -2,10 +2,10 @@ def majorityElement(array):
     # Write your code here.
     maj = -1
     count = 0
-    for i in range(len(array)):
+    for num in array:
         if count == 0:
-            maj = array[i]
-        if array[i] == maj:
+            maj = num
+        if num == maj:
             count += 1
         else:
             count -= 1
