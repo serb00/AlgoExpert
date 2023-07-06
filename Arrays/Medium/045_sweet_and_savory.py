@@ -8,7 +8,7 @@ def sweetAndSavory(dishes, target):
     while p1 < p2:
         if dishes[p1] > 0 or dishes[p2] < 0:
             break
-    
+
         curVal = (dishes[p2] + dishes[p1])
         if target - curVal < best and target >= curVal:
             best = target - curVal
